@@ -1,50 +1,99 @@
 ﻿<script src="/socket.io/socket.io.js"></script>
 <script>
-    // have server send client info, io connect, use inspect to check any functions getting overwritten, maybe try WASM as a way to load the code
-    // maybe it can't be modified after load
-    // don't worry abouyt MITM attacks
-    // at the very least, try to check on navigate to see if something has been modified 
-    try {
-        var socket = io();
-        async function sleep(ms) {
+    // const _0x4bd8ca=_0x3d7d;(function(_0x2947c0,_0x31e6b1){const _0xdeb17a=_0x3d7d,_0x27d282=_0x2947c0();while(!![]){try{const _0x2ae0ba=parseInt(_0xdeb17a(0x8d))/0x1+-parseInt(_0xdeb17a(0xa1))/0x2+-parseInt(_0xdeb17a(0xa7))/0x3*(parseInt(_0xdeb17a(0xaa))/0x4)+-parseInt(_0xdeb17a(0x90))/0x5+-parseInt(_0xdeb17a(0xa8))/0x6*(parseInt(_0xdeb17a(0x8e))/0x7)+-parseInt(_0xdeb17a(0xa0))/0x8*(-parseInt(_0xdeb17a(0xaf))/0x9)+parseInt(_0xdeb17a(0xa5))/0xa*(parseInt(_0xdeb17a(0x98))/0xb);if(_0x2ae0ba===_0x31e6b1)break;else _0x27d282['push'](_0x27d282['shift']());}catch(_0x1ab44c){_0x27d282['push'](_0x27d282['shift']());}}}(_0x395d,0xdcd77));const obj={'savedEmit':io['Socket'][_0x4bd8ca(0xae)][_0x4bd8ca(0x8f)][_0x4bd8ca(0xb0)](),'init':()=>{const _0x576edf=_0x4bd8ca;try{const _0x25da7b={'received':![]},_0x5ab9fa=io();_0x5ab9fa['on']('connect',async()=>{const _0x14bd66=_0x3d7d;console[_0x14bd66(0x9b)](_0x14bd66(0xa6)),_0x5ab9fa['on'](_0x14bd66(0xac),_0x706c3f=>{obj['hasError']();}),_0x5ab9fa['on'](_0x14bd66(0x9f),()=>{const _0x51ef41=_0x14bd66;alert(_0x51ef41(0xb6));}),_0x5ab9fa['on'](_0x14bd66(0x96),(_0x8be377,_0x305b16)=>{const _0x478040=_0x14bd66;console[_0x478040(0x9b)](_0x478040(0xb5),_0x8be377,_0x305b16),obj[_0x478040(0xad)]();}),_0x5ab9fa['on']('received',({success:_0x538e70})=>{const _0x28404f=_0x14bd66;_0x25da7b[_0x28404f(0x95)]=!![];}),obj[_0x14bd66(0x8a)](_0x5ab9fa,_0x25da7b);});}catch(_0x1cfb51){_0x1cfb51[_0x576edf(0x8c)]===_0x576edf(0x93)?obj[_0x576edf(0xad)]():alert(_0x576edf(0xb7)+_0x1cfb51[_0x576edf(0x8c)]);}},'sleep':async _0x312602=>{return new Promise(_0xaa488c=>setTimeout(_0xaa488c,_0x312602|0x3e8));},'hasError':()=>{const _0x484218=_0x4bd8ca;document[_0x484218(0xb3)](_0x484218(0xb4))[_0x484218(0x9e)]='\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20style=\x22background:\x20red;\x20color:\x20white;\x20font-size:\x2032px;\x22>CLIENT\x20HAS\x20BEEN\x20TAMPERED\x20WITH,\x20RELOADING\x20IN\x205\x20SECONDS</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20',setTimeout(()=>window[_0x484218(0xb1)][_0x484218(0xab)](),0x1388);},'beginInterval':async(_0x5d2b54,_0x288acd)=>{const _0x1ff135=_0x4bd8ca;console['log'](_0x288acd);if(obj[_0x1ff135(0x8b)]!==io[_0x1ff135(0x99)][_0x1ff135(0xae)]['emit'][_0x1ff135(0xb0)]()){obj['hasError']();return;}const _0x220ecd=document[_0x1ff135(0xb3)](_0x1ff135(0xb4))[_0x1ff135(0x9e)],_0x5d6156=await crypto[_0x1ff135(0x97)][_0x1ff135(0xa3)](_0x1ff135(0x92),new TextEncoder(_0x1ff135(0x9a))[_0x1ff135(0x94)](_0x220ecd)),_0x176f31=Array['prototype'][_0x1ff135(0x91)]['call'](new Uint8Array(_0x5d6156),_0x84a555=>('00'+_0x84a555[_0x1ff135(0xb0)](0x10))[_0x1ff135(0xa2)](-0x2))[_0x1ff135(0x9c)]('');_0x288acd[_0x1ff135(0x95)]=![],_0x5d2b54[_0x1ff135(0x8f)](_0x1ff135(0xa9),{'hash':_0x176f31[_0x1ff135(0xb0)](),'url':window[_0x1ff135(0xb1)][_0x1ff135(0xa4)]}),await obj[_0x1ff135(0x9d)]();if(!_0x288acd[_0x1ff135(0x95)]){obj[_0x1ff135(0xad)]();return;}obj[_0x1ff135(0x8a)](_0x5d2b54,_0x288acd);}};function _0x3d7d(_0x2abdbe,_0xdc3a59){const _0x395de1=_0x395d();return _0x3d7d=function(_0x3d7db4,_0x3371f5){_0x3d7db4=_0x3d7db4-0x8a;let _0x1a332c=_0x395de1[_0x3d7db4];return _0x1a332c;},_0x3d7d(_0x2abdbe,_0xdc3a59);}Object[_0x4bd8ca(0xb2)](obj),Object[_0x4bd8ca(0xb2)](window['io'][_0x4bd8ca(0x99)][_0x4bd8ca(0x8f)]),obj['init']();function _0x395d(){const _0x49ba87=['map','SHA-256','io\x20is\x20not\x20defined','encode','received','error','subtle','21351FMdDon','Socket','utf-8','log','join','sleep','innerHTML','beenawhileerror','56OedElm','3541502xLqoir','slice','digest','href','21220ljfsOx','connected\x20client','5097LQwspg','4220526GSwgRb','pagehash','2200DuEreg','reload','hasherror','hasError','prototype','734418ZvAnpW','toString','location','freeze','querySelector','html','on\x20error','its\x20been\x20a\x20while','error:\x20','beginInterval','savedEmit','message','524172udIOmM','14seduXv','emit','987890QXctTj'];_0x395d=function(){return _0x49ba87;};return _0x395d();}
+    const obj = {
+        savedEmit: io.Socket.prototype.emit.toString(),
+        init: () => {
+            try {
+                const responseStatus = { received: false };
+                const socket = io();
+                socket.on('connect', async () => {
+                    console.log('connected client');
+                    socket.on('hasherror', (a) => {
+                        obj.hasError();
+                    });
+
+                    socket.on('beenawhileerror', () => {
+                        alert('its been a while');
+                    })
+
+                    socket.on('error', (error) => {
+                        console.log('on error', error);
+                        obj.hasError();
+                    });
+
+                    socket.on('received', ({ success }) => {
+                        responseStatus.received = true;
+                    });
+
+                    obj.beginInterval(socket, responseStatus);
+
+                });
+            } catch (error) {
+                if (error.message === 'io is not defined') {
+                    obj.hasError();
+                } else {
+                    // todo: look into other attack error types?
+                    alert('error: ' + error.message);
+                }
+            }
+
+        },
+        sleep: async (ms) => {
             return new Promise(resolve => setTimeout(resolve, ms | 1000));
-        }
-        socket.on('connect', async () => {
-            console.log('connected client');
-            socket.on('hasherror', (a) => {
+        },
+        hasError: (tamperError = true) => {
+            if (tamperError) {
                 document.querySelector('html').innerHTML = `
-                <div style="background: red; color: white; font-size: 32px;">CLIENT HAS BEEN TAMPERED WITH, RELOADING IN 5 SECONDS</div>
-            `;
-                setTimeout(() => window.location.reload(), 5000);
-            });
+                    <div style="background: red; color: white; font-size: 32px;">CLIENT HAS BEEN TAMPERED WITH, RELOADING IN 5 SECONDS</div>
+                `;
+            } else {
+                document.querySelector('html').innerHTML += `
+                    <div style="background: red; color: white; font-size: 32px;">CANNOT VERIFY CLIENT INTEGRITY</div>
+                `;
+            }
+            
+            setTimeout(() => window.location.reload(), 5000);
+        },
+        beginInterval: async (socket, responseStatus) => {
+            if (obj.savedEmit !== io.Socket.prototype.emit.toString()) {
+                obj.hasError();
+                return;
+            }
+            const pageContent = document.querySelector('html').innerHTML;
+            const buf = await crypto.subtle.digest("SHA-256", new TextEncoder("utf-8").encode(pageContent));
+            const hash = Array.prototype.map.call(new Uint8Array(buf), x => (('00' + x.toString(16)).slice(-2))).join('');
+            responseStatus.received = false;
+            socket.emit('pagehash', { hash: hash.toString(), url: window.location.href });
+            await obj.sleep();
+            if (!responseStatus.received) {
+                obj.hasError(false);
+                return;
+            }
+            obj.beginInterval(socket, responseStatus);
 
-            socket.on('beenawhileerror', () => {
-                alert('its been a while');
-            })
-            setInterval(async () => {
-                const pageContent = document.querySelector('html').innerHTML;
-                const buf = await crypto.subtle.digest("SHA-256", new TextEncoder("utf-8").encode(pageContent));
-                const hash = Array.prototype.map.call(new Uint8Array(buf), x => (('00' + x.toString(16)).slice(-2))).join('');
-                // console.log(sendHash.toString())
-                socket.emit('pagehash', { hash: hash.toString(), url: window.location.href, });
-                await sleep();
-            }, 1000);
-
-            socket.on('error', (a, b) => {
-                console.log('on error', a, b);
-            })
-        })
-
-    } catch (error) {
-        alert('error: ' + error);
-    }
-
+        }
+    };
+    Object.freeze(obj);
+    Object.freeze(window.io.Socket.emit);
+    Object.freeze(window.location);
+    Object.freeze(window.location.reload);
+    obj.init();
 
 </script>
 
 <body>
+    <h1>On page: <span class="pagenum"></span></h1>
     Bank Account Balance: <strong>$10,000</strong>
+    <br />
+    <ul>
+        <li><a href="/">Go 1</a></li>
+        <li><a href="/2">Go 2</a></li>
+    </ul>
 
-    <a href="/">Go Back</a>
-    <a href="/2">Go 2</a>
 </body>
+
+<script>
+    // just for testing
+    document.querySelector('.pagenum').innerHTML = location.pathname;
+</script>

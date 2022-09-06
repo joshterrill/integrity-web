@@ -7,37 +7,13 @@ const io = new Server(server);
 
 const socketMap = {};
 
-function getSocketMap() {
-    return socketMap;
-}
-
-function setSocketMap(socketId, vals) {
-    socketMap[socketId] = {
-       ...vals,
-    };
-}
-
 function checkSocketMap() {
     for (const socketId of Object.keys(socketMap)) {
-        if (socketMap[socketId].lastPing < new Date().getTime() - 10000) {
+        if (socketMap[socketId] && socketMap[socketId].lastPing < (new Date().getTime() - 10000)) {
             console.log('last ping was a while ago');
             socketMap[socketId].tampered = true;
-            // socketMap[socketId].socket.emit('beenawhileerror', {...socketMap[socketId]});
+            socketMap[socketId].socket.emit('beenawhileerror', {...socketMap[socketId]});
         }
-    }
-}
-
-function checkState(req) {
-    if (req) {
-        console.log('latest socket map', JSON.parse(JSON.stringify(getSocketMap())))
-        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress 
-        const vals = Object.values(getSocketMap()).find(s => s.ip === ip);
-        console.log(vals);
-        if (vals && vals.tampered) {
-            res.status(403).send('You have been banned');
-        }
-        
-    
     }
 }
 
@@ -46,12 +22,18 @@ setInterval(() => {
 }, 5000);
 
 app.use((req, res, next) => {
-    checkState(req);
+    if (req) {
+        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
+        const vals = Object.values(socketMap).find(s => s.ip === ip);
+        if (vals && vals.tampered) {
+            res.status(403).send('CLIENT MAYBE HAS BEEN TAMPERED WITH');
+        }
+    }
     next();
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/index.html');
 });
 
 app.get('/2', (req, res) => {
@@ -63,14 +45,12 @@ io.on('connect', (socket) => {
         socketMap[socket.id] = null;
     }
     console.log('socket connected', socket.id);
-    socket.on('pagehash', ({hash, url}) => {
+    socket.on('pagehash', ({ hash, url }) => {
         if (socketMap[socket.id] && socketMap[socket.id].url === url && socketMap[socket.id].hash !== hash) {
-            socket.emit('hasherror', {error: 'tampered client'});
+            socket.emit('hasherror', { error: 'tampered client' });
         }
-        setSocketMap(socket.id, {hash, url, lastPing: new Date().getTime(), ip: socket.conn.remoteAddress});
-        // socketMap[socket.id + ''] = {hash, url, lastPing: new Date().getTime(), ip: socket.conn.remoteAddress};
-        console.log('received', socketMap[socket.id + '']);
-        // console.log(socket)
+        socketMap[socket.id] = { hash, url, lastPing: new Date().getTime(), ip: socket.conn.remoteAddress };
+        socket.emit('received', { success: true });
     });
 
     socket.on('disconnect', (reason) => {
@@ -81,7 +61,7 @@ io.on('connect', (socket) => {
 
 
 server.listen(3000, () => {
-  console.log('listening on http://localhost:3000');
+    console.log('listening on http://localhost:3000');
 });
 
 // app.get('/stream', function (req, res, next) {
