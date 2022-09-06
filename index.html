@@ -1,0 +1,50 @@
+﻿<script src="/socket.io/socket.io.js"></script>
+<script>
+    // have server send client info, io connect, use inspect to check any functions getting overwritten, maybe try WASM as a way to load the code
+    // maybe it can't be modified after load
+    // don't worry abouyt MITM attacks
+    // at the very least, try to check on navigate to see if something has been modified 
+    try {
+        var socket = io();
+        async function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms | 1000));
+        }
+        socket.on('connect', async () => {
+            console.log('connected client');
+            socket.on('hasherror', (a) => {
+                document.querySelector('html').innerHTML = `
+                <div style="background: red; color: white; font-size: 32px;">CLIENT HAS BEEN TAMPERED WITH, RELOADING IN 5 SECONDS</div>
+            `;
+                setTimeout(() => window.location.reload(), 5000);
+            });
+
+            socket.on('beenawhileerror', () => {
+                alert('its been a while');
+            })
+            setInterval(async () => {
+                const pageContent = document.querySelector('html').innerHTML;
+                const buf = await crypto.subtle.digest("SHA-256", new TextEncoder("utf-8").encode(pageContent));
+                const hash = Array.prototype.map.call(new Uint8Array(buf), x => (('00' + x.toString(16)).slice(-2))).join('');
+                // console.log(sendHash.toString())
+                socket.emit('pagehash', { hash: hash.toString(), url: window.location.href, });
+                await sleep();
+            }, 1000);
+
+            socket.on('error', (a, b) => {
+                console.log('on error', a, b);
+            })
+        })
+
+    } catch (error) {
+        alert('error: ' + error);
+    }
+
+
+</script>
+
+<body>
+    Bank Account Balance: <strong>$10,000</strong>
+
+    <a href="/">Go Back</a>
+    <a href="/2">Go 2</a>
+</body>
