@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "description": "An experimental drop-in JS file that detects any changes to the DOM and notifies user if such as taken place",
   "main": "index.js",
+  "private": true,
   "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -27,5 +30,8 @@
   "dependencies": {
     "express": "^4.18.1",
     "socket.io": "^4.5.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }

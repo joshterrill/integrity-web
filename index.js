@@ -4,6 +4,7 @@ const http = require('http');
 const server = http.createServer(app);
 const { Server } = require('socket.io');
 const io = new Server(server);
+const port = process.env.PORT || 3000;
 
 const socketMap = {};
 
@@ -21,9 +22,11 @@ setInterval(() => {
     checkSocketMap();
 }, 5000);
 
+app.use(express.static('example'));
+
 app.use((req, res, next) => {
     if (req) {
-        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
+        const ip = req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.socket.remoteAddress;
         const vals = Object.values(socketMap).find(s => s.ip === ip);
         if (vals && vals.tampered) {
             res.status(403).send('CLIENT MAYBE HAS BEEN TAMPERED WITH');
@@ -37,7 +40,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/2', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/example/index.html');
 })
 
 io.on('connect', (socket) => {
@@ -60,32 +63,6 @@ io.on('connect', (socket) => {
 });
 
 
-server.listen(3000, () => {
-    console.log('listening on http://localhost:3000');
+server.listen(port, () => {
+    console.log(`listening on http://localhost:${port}`);
 });
-
-// app.get('/stream', function (req, res, next) {
-//     //when using text/plain it did not stream
-//     //without charset=utf-8, it only worked in Chrome, not Firefox
-//     res.setHeader('Content-Type', 'text/html; charset=utf-8');
-//     // res.setHeader('Transfer-Encoding', 'chunked');
-
-//     res.write('Thinking...');
-//     sendAndSleep(res, 1);
-// });
-
-
-// var sendAndSleep = function (response, counter) {
-//     if (counter > 10) {
-//         response.write(`<script>alert('done');</script>`)
-//         response.end();
-//     } else {
-//         response.write(' ;i=' + counter);
-//         counter++;
-//         setTimeout(function () {
-//             sendAndSleep(response, counter);
-//         }, 1000)
-//     };
-// };
-
-// app.listen(3000, () => console.log('Example app listening on port http://localhost:3000'));
