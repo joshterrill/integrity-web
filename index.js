@@ -36,11 +36,11 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(`${__dirname}/index.html`);
 });
 
 app.get('/2', (req, res) => {
-    res.sendFile(__dirname + '/example/index.html');
+    res.sendFile(`${__dirname}/example/index.html`);
 })
 
 io.on('connect', (socket) => {
